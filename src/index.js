@@ -1,17 +1,14 @@
 import React from 'react'; 
 import ReactDOM from 'react-dom';
-// import SortingHat from './API_Requests/Sorting_Hat';
-// import Searchbar from './Searchbar';
+import Search from './componants/Searchbar'
+import CharacterList from './componants/character_list';
 
-                // <div className="ui container" style={{ marginTop: '10px'}}>
-                //     <Searchbar onSubmit={this.onSearchSubmit} />
-                //     Found : { this.state.images.length }
-                // </div>
-       
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = { characters: [] }
+    this.state = {
+        characters: [],
+        }
     }
 
     componentDidMount(){
@@ -20,46 +17,76 @@ class App extends React.Component{
 
     fetchedData(){
         fetch('https://www.potterapi.com/v1/characters?key=$2a$10$DGbEmapYD7p3LyvAGF3zke0SKd.xPGOBPJTDsK4pOo82wI3FdcNPC')
-            .then(res => res.json())
-        .then(
-            (result) => {
+        .then(res => res.json())
+        .then((data) => {
             this.setState({
-                characters : result
+                characters : data
             });
-            console.log(result)
-        })
-        .catch(err => console.error(err));
-        };
-
-        render(){
-            const{characters} = this.state;
-                    return(
-                    <ul class="bl">
-                        {characters.map(character => (
-                            <li key={character}>
-                            <div class="ui card">
-                              <div class="content">{character.name}</div>
-                            </div>
-                    </li>))}
-                </ul>
-            )
-        }
-    }
-
-    // export default App;
+            console.log(data)
+            })
+            .catch(err => err.message('gayyo'))
+            };
     
-ReactDOM.render(<App />, document.querySelector('#root'))            
+        
+        render(){
+            return(
+            <ul className="bl">
+                <Search onSubmit={this.onSearchSubmit}/>
+                <CharacterList characters={this.state.characters}/>
+            </ul>)}};
 
-//       onSearchSubmit = async term => {
-//         const response = await axios.get('https://api.unsplash.com/photos', {
-//             params: { query: term },
-//             headers: {
-//                 Authorization: 
-//                     'Client-ID -QqJFZDKFkxpi1Zu9Y64OCfuJdSxmKVaEEZZt8-FXXY'
-//             }
-//           });
+    
+ReactDOM.render(<App />, document.querySelector('#root'))
 
-//           this.setState({ images: response.data.results })
 
-//         //   this.state.images.map
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //* {characters.map(character => (
+                        //     <li key={character}>
+                        //     <div className="ui card">
+                        //     <div className="content">{character.name}</div>
+                        //     </div>
+                        // </li>))}
